@@ -1,6 +1,7 @@
 package com.example.buffeProject.controller;
 
 import com.example.buffeProject.domain.Cliente.Cliente;
+import com.example.buffeProject.domain.Cliente.ClienteCustomRepository;
 import com.example.buffeProject.domain.Cliente.ClienteRepository;
 import com.example.buffeProject.domain.Cliente.RequestClienteDTO;
 import jakarta.validation.Valid;
@@ -18,11 +19,20 @@ public class ClienteController {
     @Autowired
     private ClienteRepository repository;
 
+    @Autowired
+    private ClienteCustomRepository customRepository;
+
     @GetMapping
     public ResponseEntity getClienteAll(){
         List<Cliente> clienteList = repository.findAll();
         return ResponseEntity.ok(clienteList);
    }
+
+    @GetMapping("/filtro")
+    public ResponseEntity getClienteByName(@RequestParam("name") String name) {
+        List<Cliente> res = customRepository.filterByName(name);
+        return ResponseEntity.ok(res);
+    }
 
    @PostMapping
     public ResponseEntity createCliente(@RequestBody @Valid RequestClienteDTO data){

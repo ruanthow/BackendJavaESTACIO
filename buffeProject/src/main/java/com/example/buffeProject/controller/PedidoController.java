@@ -24,6 +24,7 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoList);
     }
 
+    @CrossOrigin
     @PostMapping
     public ResponseEntity createPedido(@RequestBody @Valid RequestPedidoDTO data){
         Pedido pedido = new Pedido(data);

@@ -9,9 +9,7 @@ import com.example.buffeProject.domain.SendMessage.SendMessageDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 
 import java.util.List;
@@ -31,11 +29,12 @@ public class PedidoController {
     }
 
     @CrossOrigin
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SendMessage> createPedido(@RequestBody @Valid RequestPedidoDTO data) {
+    @PostMapping
+    public ResponseEntity<SendMessageDTO> createPedido(@RequestBody @Valid RequestPedidoDTO data) {
         Pedido pedido = new Pedido(data);
-        SendMessageDTO msg = new SendMessageDTO(pedido.getTelefone(), pedido.getNome());
-        SendMessage message = new SendMessage(msg);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        SendMessage message = new SendMessage(pedido);
+        repository.save(pedido);
+        SendMessageDTO dto = new SendMessageDTO(message);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

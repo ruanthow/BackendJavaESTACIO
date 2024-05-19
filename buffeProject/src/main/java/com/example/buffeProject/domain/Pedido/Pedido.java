@@ -32,4 +32,8 @@ public class Pedido {
         this.telefone = data.telefone();
         this.pedidoAceito = data.pedido_aceito();
     }
+
+    public String SendMessage(){
+        return "{}";
+    }
 }

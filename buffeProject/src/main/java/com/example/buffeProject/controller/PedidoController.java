@@ -5,9 +5,11 @@ import com.example.buffeProject.domain.Pedido.Pedido;
 import com.example.buffeProject.domain.Pedido.PedidoRepository;
 import com.example.buffeProject.domain.Pedido.RequestPedidoDTO;
 import com.example.buffeProject.domain.SendMessage.SendMessage;
+import com.example.buffeProject.domain.SendMessage.SendMessageDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,11 +31,11 @@ public class PedidoController {
     }
 
     @CrossOrigin
-    @PostMapping
-    public ResponseEntity createPedido(@RequestBody @Valid RequestPedidoDTO data) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<SendMessage> createPedido(@RequestBody @Valid RequestPedidoDTO data) {
         Pedido pedido = new Pedido(data);
-        SendMessage message = new SendMessage();
-        var result = message.Send("Nome completo: "+ pedido.getNome() + "%20%0A" + "Telefone: " + pedido.getTelefone() + "%20%0A" + "Ola quero alugar o seu salão de festas quanto custa ?", "21983419689");
-        return ResponseEntity.ok(result);
+        SendMessageDTO msg = new SendMessageDTO(pedido.getTelefone(), pedido.getNome());
+        SendMessage message = new SendMessage(msg);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

@@ -33,7 +33,7 @@ public class SendMessage {
     }
 
     public String createURL(){
-        return "https://api.whatsapp.com/send/" + "?phone=" + this.getContato() + "&text=" + "Nome completo: "+ this.getNome() + "%20%0A" + "Telefone: " + this.getNumero() + "%20%0A" + "Olá entrei em contato por meio do seu site tenho interesse em saber como funciona alugando o "+ this.getTipoEvento() + " ?" + "&type=phone_number&app_absent=0";
+        return "https://api.whatsapp.com/send/" + "?phone=55" + this.getContato() + "&text=" + "Nome completo: "+ this.getNome() + "%20%0A" + "Telefone: 55" + this.getNumero() + "%20%0A" + "Olá entrei em contato por meio do seu site tenho interesse em saber como funciona alugando o "+ this.getTipoEvento() + " ?" + "&type=phone_number&app_absent=0";
     }
 }
 

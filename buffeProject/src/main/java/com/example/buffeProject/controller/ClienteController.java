@@ -4,6 +4,7 @@ import com.example.buffeProject.domain.Cliente.Cliente;
 import com.example.buffeProject.domain.Cliente.ClienteCustomRepository;
 import com.example.buffeProject.domain.Cliente.ClienteRepository;
 import com.example.buffeProject.domain.Cliente.RequestClienteDTO;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +24,21 @@ public class ClienteController {
     private ClienteCustomRepository customRepository;
 
     @GetMapping
+    @Transactional
     public ResponseEntity getClienteAll(){
         List<Cliente> clienteList = repository.findAll();
         return ResponseEntity.ok(clienteList);
    }
 
     @GetMapping("/filtro")
+    @Transactional
     public ResponseEntity getClienteByName(@RequestParam("name") String name) {
         List<Cliente> res = customRepository.filterByName(name);
         return ResponseEntity.ok(res);
     }
 
    @PostMapping
+   @Transactional
     public ResponseEntity createCliente(@RequestBody @Valid RequestClienteDTO data){
         Cliente cliente = new Cliente(data);
         repository.save(cliente);

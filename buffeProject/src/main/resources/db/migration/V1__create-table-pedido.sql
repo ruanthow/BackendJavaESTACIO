@@ -1,10 +1,9 @@
 CREATE TABLE pedido (
-    id INT NOT NULL PRIMARY KEY UNIQUE,
-    qtdPessoas int NOT NULL,
-    data date NOT NULL,
-    hora TIME NOT NULL,
-    endereco TEXT NOT NULL,
-    mensagem TEXT NOT NULL,
+    id TEXT NOT NULL PRIMARY KEY UNIQUE,
+    nome TEXT NOT NULL,
+    qtd_pessoas int NOT NULL,
+    data_evento date NOT NULL,
+    tipo_evento TEXT NOT NULL,
     telefone TEXT NOT NULL,
-    pedidoAceito TEXT NOT NULL
+    pedido_aceito TEXT NOT NULL
 );
